@@ -1,0 +1,112 @@
+{
+  "id": "2198fe16-7b56-40ba-bd96-b49b0ae4047b",
+  "version": "2.0",
+  "name": "ArxivLatestPdf",
+  "url": "https://arxiv.org",
+  "tests": [{
+    "id": "6544adcc-ea6e-4980-92e9-21d9a9ddb277",
+    "name": "Download pdf",
+    "commands": [{
+      "id": "629c2610-7937-4b0b-909e-5fb371db53b1",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "726e0802-995c-4808-b5b1-6fbc26ee3046",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d983d177-8d06-4f74-a00e-c7fd7f8b7ee7",
+      "comment": "Open advanced search",
+      "command": "click",
+      "target": "linkText=Advanced Search",
+      "targets": [
+        ["linkText=Advanced Search", "linkText"],
+        ["css=.help > a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Advanced Search')]", "xpath:link"],
+        ["xpath=//div[@id='header']/div[2]/form/div/div/p/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://arxiv.org/search/advanced')]", "xpath:href"],
+        ["xpath=//p/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Advanced Search')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ba778ed9-2d2b-45ac-8114-b492386d1a27",
+      "comment": "Opening the list of all papers sorted by date",
+      "command": "click",
+      "target": "css=.button:nth-child(3)",
+      "targets": [
+        ["css=.button:nth-child(3)", "css:finder"],
+        ["xpath=//main[@id='main-container']/div[2]/div[2]/div/div/form/section[3]/button", "xpath:idRelative"],
+        ["xpath=//section[3]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5601c62-27e4-431b-a4a1-195d501bed5d",
+      "comment": "Storing the filename for the latest paper",
+      "command": "storeText",
+      "target": "css=.arxiv-result:nth-child(1) .list-title > a",
+      "targets": [
+        ["linkText=arXiv:2403.06980", "linkText"],
+        ["css=.arxiv-result:nth-child(1) .list-title > a", "css:finder"],
+        ["xpath=//a[contains(text(),'arXiv:2403.06980')]", "xpath:link"],
+        ["xpath=//main[@id='main-container']/div[2]/ol/li/div/p/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://arxiv.org/abs/2403.06980')]", "xpath:href"],
+        ["xpath=//li/div/p/a", "xpath:position"],
+        ["xpath=//a[contains(.,'arXiv:2403.06980')]", "xpath:innerText"]
+      ],
+      "value": "filename"
+    }, {
+      "id": "2e0e3bf6-6389-4c60-bb86-af6e7a7984b2",
+      "comment": "Changing the link download attribute",
+      "command": "executeScript",
+      "target": "document.querySelectorAll('.arxiv-result:nth-child(1) a')[1].setAttribute('download', ${filename} + '.pdf')",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c2219d03-ed60-4eec-9111-f725b77c070d",
+      "comment": "Downloading the pdf",
+      "command": "click",
+      "target": "linkText=pdf",
+      "targets": [
+        ["linkText=pdf", "linkText"],
+        ["css=.arxiv-result:nth-child(1) .list-title > span > a:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'pdf')]", "xpath:link"],
+        ["xpath=//main[@id='main-container']/div[2]/ol/li/div/p/span/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://arxiv.org/pdf/2403.06980')]", "xpath:href"],
+        ["xpath=//p/span/a", "xpath:position"],
+        ["xpath=//a[contains(.,'pdf')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "76af32c2-1a4b-4fac-9dc3-09ece32bda29",
+      "comment": "Waiting for download to complete",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a714488-62d6-4d3e-9be4-98b3c7adb373",
+      "comment": "Close the browser",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "a032f41d-d858-4936-b18e-c51eab0e779f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["6544adcc-ea6e-4980-92e9-21d9a9ddb277"]
+  }],
+  "urls": ["https://arxiv.org/"],
+  "plugins": []
+}
